@@ -1,0 +1,28 @@
+Dumb hack I did, googled around for pieces and got a nice-ish way to do this.
+
+The change_desktop.sh file will work standalone, just change your
+image path and have at it. show_desktop.py has the same functionality
+as the "show desktop" button (in a helluva lot less code!) of Gnome,
+showing the desktop for 2.0 seconds and then restoring the windows.
+This is commented out in the shell script by default since it can be
+annoying, for example if you want to watch something...
+
+However, if you want to use this in a cronjob (as I did), you'll need
+to make use of the included .make_Xdbus file which makes a .Xdbus
+file in your home directory. All you have to do is
+put it in your Startup Applications for Gnome, or run it when you log
+on sometime. Cron has a different environment than the user, so if you
+try to do graphical stuff on behalf of the user things can get a little
+messy. The shell script needs the first two vars, the Python script
+needs the last DISPLAY var.
+
+Then, you need to make your crontab file look like this:
+
+* * * * * . /home/yourname/.Xdbus; /path/to/change_desktop.sh
+
+Don't forget the leading "."!
+
+When I get bored I'll probably update this with a singular Python script
+that supports multiple directories and so on.
+
+I claim no copyright over this code.
